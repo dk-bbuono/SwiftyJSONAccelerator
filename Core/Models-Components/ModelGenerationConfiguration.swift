@@ -32,7 +32,8 @@ struct ModelGenerationConfiguration {
     var isFinalRequired: Bool
     /// Should header be included.
     var isHeaderIncluded: Bool
-
+    /// Should fields be nullable
+    var nullableFields: Bool
     /// Checks if the configuration is valid as per the rules of Swift.
     ///
     /// - Returns: If the config is valid and the reason for invalidation if it is invalid.
@@ -52,6 +53,7 @@ struct ModelGenerationConfiguration {
         prefix = ""
         filePath = ""
         baseClassName = ""
+        nullableFields = true
     }
 
 }

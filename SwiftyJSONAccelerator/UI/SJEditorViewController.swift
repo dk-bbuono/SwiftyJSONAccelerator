@@ -41,6 +41,7 @@ class SJEditorViewController: NSViewController, NSTextViewDelegate {
     @IBOutlet var authorNameTextField: NSTextField!
     @IBOutlet var includeHeaderImportCheckbox: NSButton!
     @IBOutlet var enableNSCodingSupportCheckbox: NSButton!
+    @IBOutlet var nullableFieldsCheckbox: NSButton!
     @IBOutlet var setAsFinalCheckbox: NSButton!
     @IBOutlet var librarySelector: NSPopUpButton!
     @IBOutlet var modelTypeSelectorSegment: NSSegmentedControl!
@@ -162,7 +163,8 @@ class SJEditorViewController: NSViewController, NSTextViewDelegate {
                                                                   modelMappingLibrary: libraryType,
                                                                   supportNSCoding: nsCodingState,
                                                                   isFinalRequired: isFinalClass,
-                                                                  isHeaderIncluded: includeHeaderImportCheckbox.state == 1 ? true : false)
+                                                                  isHeaderIncluded: includeHeaderImportCheckbox.state == 1 ? true : false,
+                                                                  nullableFields: nullableFieldsCheckbox.state == 1 ? true : false)
             let modelGenerator = ModelGenerator.init(JSON(object!), configuration)
             let filesGenerated = modelGenerator.generate()
             for file in filesGenerated {

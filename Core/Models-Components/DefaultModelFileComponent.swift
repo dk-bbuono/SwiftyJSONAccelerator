@@ -32,7 +32,7 @@ protocol DefaultModelFileComponent {
 
    - returns: Generated instance of the string for declaration.
    */
-  func genVariableDeclaration(_ name: String, _ type: String, _ isArray: Bool) -> String
+    func genVariableDeclaration(_ name: String, _ type: String, _ isArray: Bool, _ nullable:Bool) -> String
 
   /**
    Generate a basic declaration for a variable of simple value type of atomic nature.
@@ -42,7 +42,7 @@ protocol DefaultModelFileComponent {
 
    - returns: Generated instance of the string for declaration.
    */
-  func genPrimitiveVariableDeclaration(_ name: String, _ type: String) -> String
+    func genPrimitiveVariableDeclaration(_ name: String, _ type: String, _ nullable:Bool) -> String
 
   /**
    Description for the primitive type variable.
@@ -121,19 +121,21 @@ extension DefaultModelFileComponent {
     return "static let \(component.last!) = \"\(value)\""
   }
 
-  func genVariableDeclaration(_ name: String, _ type: String, _ isArray: Bool) -> String {
+    func genVariableDeclaration(_ name: String, _ type: String, _ isArray: Bool, _ nullable: Bool) -> String {
     var _type = type
     if isArray {
       _type = "[\(type)]"
     }
-    return genPrimitiveVariableDeclaration(name, _type)
+    return genPrimitiveVariableDeclaration(name, _type, nullable)
   }
 
-  func genPrimitiveVariableDeclaration(_ name: String, _ type: String) -> String {
+    func genPrimitiveVariableDeclaration(_ name: String, _ type: String, _ nullable: Bool) -> String {
+    
+        let nullableIndiciator = nullable ? "?" : ""
     if type == VariableType.Bool.rawValue {
-      return "public var \(name): \(type)? = false"
+      return "public var \(name): \(type)\(nullableIndiciator) = false"
     }
-    return "public var \(name): \(type)?"
+    return "public var \(name): \(type)\(nullableIndiciator)"
   }
 
   func genDescriptionForPrimitive(_ name: String, _ type: String, _ constantName: String) -> String {

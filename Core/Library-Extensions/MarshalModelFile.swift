@@ -46,32 +46,32 @@ struct MarshalModelFile: ModelFile, DefaultModelFileComponent {
         switch property.propertyType {
 
         case .ValueType:
-            component.declarations.append(genVariableDeclaration(property.name, property.type, false))
+            component.declarations.append(genVariableDeclaration(property.name, property.type, false,configuration!.nullableFields))
             component.description.append(genDescriptionForPrimitive(property.name, property.type, property.constantName))
             component.decoders.append(genDecoder(property.name, property.type, property.constantName, false))
             component.encoders.append(genEncoder(property.name, property.type, property.constantName))
             generateCommonComponentsFor(property)
         case .ValueTypeArray:
             component.description.append(genDescriptionForPrimitiveArray(property.name, property.constantName))
-            component.declarations.append(genVariableDeclaration(property.name, property.type, true))
+            component.declarations.append(genVariableDeclaration(property.name, property.type, true,configuration!.nullableFields))
             component.decoders.append(genDecoder(property.name, property.type, property.constantName, true))
             component.encoders.append(genEncoder(property.name, property.type, property.constantName))
             generateCommonComponentsFor(property)
         case .ObjectType:
             component.description.append(genDescriptionForObject(property.name, property.constantName))
-            component.declarations.append(genVariableDeclaration(property.name, property.type, false))
+            component.declarations.append(genVariableDeclaration(property.name, property.type, false,configuration!.nullableFields))
             component.decoders.append(genDecoder(property.name, property.type, property.constantName, false))
             component.encoders.append(genEncoder(property.name, property.type, property.constantName))
             generateCommonComponentsFor(property)
         case .ObjectTypeArray:
-            component.declarations.append(genVariableDeclaration(property.name, property.type, true))
+            component.declarations.append(genVariableDeclaration(property.name, property.type, true,configuration!.nullableFields))
             component.description.append(genDescriptionForObjectArray(property.name, property.constantName))
             component.decoders.append(genDecoder(property.name, property.type, property.constantName, true))
             component.encoders.append(genEncoder(property.name, property.type, property.constantName))
             generateCommonComponentsFor(property)
 
         case .EmptyArray:
-            component.declarations.append(genVariableDeclaration(property.name, "Any", true))
+            component.declarations.append(genVariableDeclaration(property.name, "Any", true,configuration!.nullableFields))
             component.description.append(genDescriptionForPrimitiveArray(property.name, property.constantName))
             component.decoders.append(genDecoder(property.name, "Any", property.constantName, true))
             component.encoders.append(genEncoder(property.name, "Any", property.constantName))
