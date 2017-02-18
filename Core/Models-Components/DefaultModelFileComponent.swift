@@ -131,7 +131,7 @@ extension DefaultModelFileComponent {
 
     func genPrimitiveVariableDeclaration(_ name: String, _ type: String, _ nullable: Bool) -> String {
     
-        let nullableIndiciator = nullable ? "?" : ""
+    let nullableIndiciator = nullable ? "?" : ""
     if type == VariableType.Bool.rawValue {
       return "public var \(name): \(type)\(nullableIndiciator) = false"
     }
